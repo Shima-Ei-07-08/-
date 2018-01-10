@@ -1,20 +1,18 @@
-void setup(){
-  size(displayWidth, displayHeight, P3D);
-}
+int balldx, balldy;//ボールのdxとdy(変化量)
 
+void setup(){
+  //size(displayHeight, displayWidth , P3D);
+  fullScreen(P3D);
+  balldx = 510;
+  balldy = -10;
+}
 void draw(){
   background(255);
   pushMatrix();
   translate(width/2, height/2);
-  rotateX(radians(120));
   stroke(0);
-  box(150, 150, 150);
+  ellipse(balldx, balldy ,40,40);
+  rect(10, 10 , 500, 300);
   popMatrix();
-  pushMatrix();
-  fill(0);
-  ellipse(50, 50 ,50,50); 
-  translate(50, 50);
-  sphere(100);
-  popMatrix();
-  fill(255);
+  balldx-=3;
   }
