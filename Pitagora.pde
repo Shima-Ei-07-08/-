@@ -6,7 +6,12 @@ boolean firstContact = false;  //Arduinoからのはじめの送信を確認す�
 byte[] inByte = new byte[3]; // 受信データ用バッファ
 
 int oval1;
-//int bx = 0;
+
+int scenes = 0;
+
+int bx = 700;
+int by = 0;
+
 //ベルトコンベアに関する変数　始
 int Beltswitch = 0;
 int BeltTurning = 10;
@@ -25,8 +30,24 @@ void setup(){
 
 void draw(){
   background(180);
+  
+  switch(scenes){
+  case 0:
+  BeltStop = 1;
+  Belt(50);
   fill(255);
-  Piston(500, 500);
+  ellipse(bx, by, 50, 50);
+  if(by < height - 75){
+    by+=5;
+  } else {
+    scenes++;
+    BeltStop = 0;
+  }
+  break;
+  case 1:
+  fill(255);
+  ellipse(bx, by, 50, 50);
+  //Piston(500, 500);
   //ベルトコンベアの移動速度についての記述　始
   if(BeltStop == 0){
   if(Beltswitch <=  BeltTurning){
@@ -42,9 +63,11 @@ void draw(){
   //終
   
   fill(255);
+  /*
   Boxedit(0, 300, 0, 200, 0, 0, 0);
   Boxedit(300, 300, 0, 200, 0, 0, 0);
   Boxedit(600, 300, 0, 200, 0, 0 ,0);
+  */
   //rect(width - 500, height - 400, width, height);
   //Slope(width - 500, height - 400,width - 700, height);
   //meter(200, 200, 150, 150, 220, 320);
@@ -52,7 +75,8 @@ void draw(){
   text("Output port: "+oval1, 10, 100);
   //text(width, 10, 30);画面幅は1366
   //text(height, 10, 30); 画面の高さは768
-   
+   break;
+  }
    //ベルトコンベアの描画に関する記述
   Beltswitch++;
   if(Beltswitch > BeltTurning + 10){
