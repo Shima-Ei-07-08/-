@@ -1,3 +1,5 @@
+/*
+
 // キー入力メソッド ボール落とす用とオチ用
 void keyPressed() {
   switch(key){
@@ -21,3 +23,4 @@ void keyPressed() {
     break;
   }
 }
+*/

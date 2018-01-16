@@ -10,27 +10,34 @@ int oval1;
 //ベルトコンベアに関する変数　始
 int Beltswitch = 0;
 int BeltTurning = 10;
+int BeltStop = 0;
 //終
 
 void setup(){
   fullScreen(P3D);
-  printArray(Serial.list()); // 使用可能なシリアルポート一覧の出力。デバッグ用
-  String portName = Serial.list()[0]; // 使用するシリアルポート名
-  serialPort = new Serial(this, portName, 9600);
-  serialPort.buffer(inByte.length); // 読み込むバッファの長さをの指定
+  //printArray(Serial.list()); // 使用可能なシリアルポート一覧の出力。デバッグ用
+  //String portName = Serial.list()[0]; // 使用するシリアルポート名
+  //serialPort = new Serial(this, portName, 9600);
+  //serialPort.buffer(inByte.length); // 読み込むバッファの長さをの指定
 
   oval1 = 99;
 }
 
 void draw(){
   background(180);
+  fill(255);
+  Piston(500, 500);
   //ベルトコンベアの移動速度についての記述　始
+  if(BeltStop == 0){
   if(Beltswitch <=  BeltTurning){
     Belt(50);
   }
   
   if(Beltswitch <= BeltTurning + 10 && Beltswitch > BeltTurning){ 
     Belt2(50);
+  }
+  } else {
+    Belt(50);
   }
   //終
   

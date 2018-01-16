@@ -1,3 +1,5 @@
+
+/*
 void serialEvent(Serial port) {
   inByte = port.readBytes();
 
@@ -9,3 +11,4 @@ void serialEvent(Serial port) {
     } 
   }
 }
+*/
