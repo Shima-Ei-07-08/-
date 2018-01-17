@@ -9,13 +9,16 @@ int oval1;
 
 int scenes = 0;
 
-int case1count = 0, case3count = 0;
+int case1count = 0, case3count = 0, case5count = 0;
 
-int bx = 700;
+int bx = 700, bx2 = 0;
 int by = 0;
 
 int px = 0, py = 200;
 int pdown = 0, pe = -30;
+
+int R = 0, G = 0, B = 0;
+int case7color = 0;
 
 //ベルトコンベアに関する変数　始
 int Beltswitch = 0;
@@ -187,10 +190,10 @@ void draw(){
    
    case 4://ピストン上げる
    
-  fill(255);
-  
+  fill(255, 100, 0);
   rect(bx - 30, height - 111, 60, 60);
   
+  fill(255);
   Piston(px, py);
    
    //始
@@ -216,17 +219,135 @@ void draw(){
    
    if(py < -60)
    {
+     BeltStop = 0;
      scenes++;
    }
    
    break;
    
    case 5:
-   
-   
-   
-   break;
-   
+   fill(255, 100, 0);
+  rect(bx - 30, height - 111, 60, 60);
+  fill(255);
+  //Piston(500, 500);
+  //ベルトコンベアの移動速度についての記述　始
+  if(BeltStop == 0){
+  
+    if(Beltswitch <=  BeltTurning){
+    Belt(50);
+  }
+  
+  if(Beltswitch <= BeltTurning + 10 && Beltswitch > BeltTurning){ 
+    Belt2(50);
+  }
+  } else {
+    Belt(50);
+  }
+  //終
+  
+  case5count++;
+  
+  if(case5count >= 150){//シーン遷移
+    scenes++;
+  }
+  break;
+  
+  case 6:
+  
+   fill(255, 100, 0);
+  rect(bx - 30, height - 111, 60, 60);
+  fill(255);
+  
+  rect(bx2 -30, height - 150, 100, 100);
+  fill(0);
+  textSize(100);
+  text("?", bx2, height - 50);
+  fill(255);
+  //Piston(500, 500);
+  //ベルトコンベアの移動速度についての記述　始
+  if(BeltStop == 0){
+  
+    if(Beltswitch <=  BeltTurning){
+    Belt(50);
+  }
+  
+  if(Beltswitch <= BeltTurning + 10 && Beltswitch > BeltTurning){ 
+    Belt2(50);
+  }
+  } else {
+    Belt(50);
+  }
+  //終
+  if(bx2 < bx){
+   bx2+=10;
+  } else { 
+    BeltStop++;
+    scenes++;
+  }
+  
+  break;
+  
+  case 7:
+  
+   fill(255, 100, 0);
+  rect(bx - 30, height - 111, 60, 60);
+  
+  fill(255 - R, 255 - G, 255 - B);
+  rect(bx2 -30, height - 150, 100, 100);
+  fill(0);
+  textSize(100);
+  text("?", bx2, height - 50);
+  fill(255);
+  //Piston(500, 500);
+  //ベルトコンベアの移動速度についての記述　始
+  if(BeltStop == 0){
+  
+    if(Beltswitch <=  BeltTurning){
+    Belt(50);
+  }
+  
+  if(Beltswitch <= BeltTurning + 10 && Beltswitch > BeltTurning){ 
+    Belt2(50);
+  }
+  } else {
+    Belt(50);
+  }
+  //終わり
+  
+  if(case7color == 0 && G < 255 && B < 255){
+    G+=5;
+    B+=5;
+  }
+  
+  if(case7color == 1 && R < 255 && G > 0){
+    R+=5;
+    G-=5;
+  }
+  
+  if(case7color == 2 && G < 255 && B > 0){
+   G+=5;
+   B-=5;
+  }
+  
+  if(case7color == 3 && G > 0 && R > 0){
+     R-=5;
+    G-=5;
+     }
+  
+  if(G == 255 && B == 255) case7color++;
+  if(R == 255 && G == 0) case7color++;
+  if(B == 0 && G == 255) case7color++;
+  if(G == 0 && R == 0) case7color++;
+  
+  if(case7color > 3 && R == 0 && G == 0 && B == 0){
+    scenes++;
+  }
+  
+  break;
+  
+ 
+  
+
   /*
   Boxedit(0, 300, 0, 200, 0, 0, 0);
   Boxedit(300, 300, 0, 200, 0, 0, 0);
