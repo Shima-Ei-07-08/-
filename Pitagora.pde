@@ -7,7 +7,9 @@ byte[] inByte = new byte[3]; // 受信データ用バッファ
 
 int oval1;
 
-PImage Grape;
+PImage Grape, Factory, House, Hito;
+int fx = 0;
+int hx = 1000;
 
 int BeltHeight = 100;
 
@@ -16,7 +18,7 @@ int bg = 0;
 
 int case1count = 0, case3count = 0, case5count = 0;
 
-int gx = 0, gy = 0;
+int gx = 100, gy = displayHeight - 400;
 
 int bx = 700, bx2 = 0;
 int by = 0;
@@ -36,7 +38,10 @@ int BeltStop = 0;
 void setup(){
   fullScreen();
   noCursor();
-  Grape = loadImage("grape.jpeg");
+  Grape = loadImage("grape.png");
+  Factory = loadImage("runL.png");
+  House = loadImage("runR.png");
+  Hito = loadImage("hito.png");
 
   printArray(Serial.list()); // 使用可能なシリアルポート一覧の出力。デバッグ用
   //String portName = Serial.list()[0]; // 使用するシリアルポート名
@@ -49,14 +54,25 @@ void setup(){
 void draw(){
   
   if(bg == 0){
-  background(180);
+  background(180);    
+  
   } else {
   background(180 + r, 180 + g, 180 + g);
   }
   
+  if(scenes < 9){
+  image(Factory,  fx,height - 245, 200, 150);
+  image(Grape, fx + 150, height - 260, 100, 100);
+  image(House, hx, height - 245, 200, 150);
+  image(Grape, hx - 45, height - 260, 100, 100);
+  
+  fx+=50;
+  hx-=50;
+  }
+  
   switch(scenes){
     case -1:
-    
+    BeltStop=1;
       rect(bx - 60, height - 170, 120, 70);
     Belt(BeltHeight);
     
@@ -75,7 +91,7 @@ void draw(){
   
   if(by < height - 130){
 
-    by+=20;
+    by+=50;
   
   } else {
   
@@ -138,7 +154,7 @@ void draw(){
   //終
   
   if(px <= bx - 80){
-    px+=15;
+    px+=50;
   } else {
     BeltStop = 1;
     pdown++;
@@ -146,7 +162,7 @@ void draw(){
   
   if(px > bx - 80 && py <= height - 220 && pdown >= 10 && py < height - 150){
     BeltStop = 1;
-   py+=15;
+   py+=50;
    
   } 
   
@@ -159,6 +175,7 @@ void draw(){
    
    case 3:
   
+  /*
    switch(case3count){
    case 0:
    fill(255, 0, 0);
@@ -171,9 +188,9 @@ void draw(){
    break;
    }
    
+   */
    
-   
-   rect(bx - 70, pe, 130, 30);
+   image(Grape, bx - 60, pe, 130, 100);
    
    fill(255);
   
@@ -199,11 +216,11 @@ void draw(){
   //終
     
    if(pe< height){
-     pe+=40;
+     pe+=50;
    }
    
    if(pe >= height && case3count < 3){
-       pe = -30;
+       pe = -50;
        case3count++;
    }
    
@@ -215,7 +232,7 @@ void draw(){
    
    case 4://ピストン上げる
    
-  fill(255, 100, 0);
+  fill(255, 0, 200);
   rect(bx - 60, height - 170, 120, 70);
   
   fill(255);
@@ -240,7 +257,7 @@ void draw(){
   
   //終
    
-   py-=20;
+   py-=50;
    
    if(py < -60)
    {
@@ -252,7 +269,7 @@ void draw(){
    
    case 5:
  
-  fill(255, 100, 0);
+  fill(255, 0, 200);
   rect(bx - 60, height - 170, 120, 70);
   fill(255);
   //Piston(500, 500);
@@ -280,10 +297,11 @@ void draw(){
   
   case 6:
   
-   fill(255, 100, 0);
+  fill(255, 0, 200);
   rect(bx - 60, height - 170, 120, 70);
   fill(255);
   
+  image(Hito, bx2 - 220, height - 200, 200, 150);
   rect(bx2 -40, height - 200, 140, 120);
   fill(0);
   textSize(100);
@@ -305,7 +323,7 @@ void draw(){
   }
   //終
   if(bx2 < bx - 30){
-   bx2+=20;
+   bx2+=50;
   } else { 
     BeltStop++;
     scenes++;
@@ -315,9 +333,9 @@ void draw(){
   
   case 7:
   
-   fill(255, 0, 100);
+  fill(255, 0, 200);
   rect(bx - 60, height - 170, 120, 70);
-  
+  image(Hito, bx2 - 220, height - 200, 200, 150);
   fill(255 - R, 255 - G, 255 - B);
   rect(bx2 -40, height - 200, 140, 120);
   fill(0);
@@ -341,23 +359,23 @@ void draw(){
   //終わり
   
   if(case7color == 0 && G < 255 && B < 255){
-    G+=15;
-    B+=15;
+    G+=85;
+    B+=85;
   }
   
   if(case7color == 1 && R < 255 && G > 0){
-    R+=15;
-    G-=15;
+    R+=85;
+    G-=85;
   }
   
   if(case7color == 2 && G < 255 && B > 0){
-   G+=15;
-   B-=15;
+   G+=85;
+   B-=85;
   }
   
   if(case7color == 3 && G > 0 && R > 0){
-     R-=15;
-    G-=15;
+     R-=85;
+    G-=85;
      }
   
   if(G == 255 && B == 255) case7color++;
@@ -367,16 +385,17 @@ void draw(){
   
   if(case7color > 3 && R == 0 && G == 0 && B == 0){
     scenes++;
-    bg++;
+   bg++;
   }
   
   break;
   
   case 8:
  
-    fill(255, 0, 200);
-  ellipse(bx - 60, height - 170, 70, 70);
+  fill(255, 0 , 200);
+  ellipse(bx - 60, height - 150, 100, 100);
   
+  image(Hito, bx2 - 220, height - 200, 200, 150);
   fill(255, 255, 255);
   rect(bx2 -40, height - 200, 140, 120);
   fill(0);
@@ -407,18 +426,44 @@ void draw(){
     g+=5;
   }
   
+  //image(Grape, gx, gy, 100, 100);
+  
+  
   if(bx2 != displayWidth + 50){
   
     bx2+=30;
     
+  } else {
+    scenes++;
   }
+  
+  
   
   break;
   
- 
+   case 9:
   
+  //ベルトコンベアの移動速度についての記述　始
+  if(BeltStop == 0){
+  
+    if(Beltswitch <=  BeltTurning){
+    Belt(BeltHeight);
+  }
+  
+  if(Beltswitch <= BeltTurning + 10 && Beltswitch > BeltTurning){ 
+    Belt2(BeltHeight);
+  }
+  } else {
+    Belt(BeltHeight);
+  }
+  //終わり
 
+  
+  
+  break;
+  
   /*
+  
   Boxedit(0, 300, 0, 200, 0, 0, 0);
   Boxedit(300, 300, 0, 200, 0, 0, 0);
   Boxedit(600, 300, 0, 200, 0, 0 ,0);
@@ -439,4 +484,14 @@ void draw(){
   }
   //ベルトコンベアここまで
   
+  if(fx > displayWidth + 100){
+    fx = -20;
   }
+  
+if(hx <  - 100){
+    hx = 1500;
+  }
+ 
+}
+  
+  
