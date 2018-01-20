@@ -1,4 +1,3 @@
-
 /*
 void serialEvent(Serial port) {
   inByte = port.readBytes();
@@ -8,6 +7,7 @@ void serialEvent(Serial port) {
       port.clear();
       firstContact = true;
       sendServo(1, 99);
+      sendServo(2, 99);
     } 
   }
 }
