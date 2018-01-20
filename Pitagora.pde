@@ -12,6 +12,8 @@ int fx = 0;
 int hx = 1000;
 int running = 0;
 
+int lx = 0, cy = -50, cx;
+
 int BeltHeight = 100;
 
 int scenes = -1;
@@ -104,7 +106,7 @@ if(hx >=  -150){
     Belt(BeltHeight);
     
     if(mouseButton == RIGHT){
-      scenes = 0;
+      scenes = 10;
     }
     
   image(Hito, bx2 - 220, height - 200, 200, 150);
@@ -473,7 +475,7 @@ if(hx >=  -150){
   break;
   
   case 8:
- 
+ BeltStop=0;
   fill(255, 0 , 200);
   ellipse(bx - 60, height - 150, 100, 100);
   
@@ -539,20 +541,89 @@ if(hx >=  -150){
     Belt(BeltHeight);
   }
   //終わり
-text("aaaaa", 1000, 500);
+
+  fill(255, 0 , 200);
+  ellipse(bx - 60, height - 150, 100, 100);
   
+  if(fx > displayWidth + 100 &&  hx <  - 100){
+    scenes++;
+  }
   
   break;
   
-  /*
+  case 10:
   
-  Boxedit(0, 300, 0, 200, 0, 0, 0);
-  Boxedit(300, 300, 0, 200, 0, 0, 0);
-  Boxedit(600, 300, 0, 200, 0, 0 ,0);
-  */
-  //rect(width - 500, height - 400, width, height);
-  //Slope(width - 500, height - 400,width - 700, height);
-  //meter(200, 200, 150, 150, 220, 320);
+  ;
+  
+  BeltStop=1;
+  
+  fill(255, 0 , 200);
+  ellipse(bx - 60, height - 150, 100, 100);
+  
+  image(Factory, lx,height - 245, 200, 150);
+  fill(255, 0, 255);
+  
+  lx+=40;
+  
+  if(lx > bx - 250){
+    bx+=40;
+  }
+   
+  if(BeltStop == 0){
+  
+    if(Beltswitch <=  BeltTurning){
+    Belt(BeltHeight);
+  }
+  
+  if(Beltswitch <= BeltTurning + 10 && Beltswitch > BeltTurning){ 
+    Belt2(BeltHeight);
+  }
+  } else {
+    Belt(BeltHeight);
+  }
+  
+  if(lx > width + 100){
+    scenes++;
+    lx = -100;
+  }
+  
+  break;
+  
+  case 11:
+  
+  fill(255);
+  rect(0, height / 2, 600, height / 2);  
+  beginShape();
+  vertex(600, height / 2);
+  vertex(width, height / 2 + 70);
+  vertex(width, height);
+  vertex(600, height);
+  endShape(CLOSE);
+   
+     
+  
+  
+  image(Factory, lx,height / 2 - 150, 200, 150);
+  fill(255, 0, 255);
+  
+  if(lx < 450){
+    fill(255, 0 , 200);
+  ellipse(lx + 200, height / 2 + cy, 100, 100);
+ 
+  lx+=40;
+  cx = lx;
+  } else {
+    fill(255, 0 , 200);
+  ellipse(cx + 200, height / 2 + cy, 100, 100);
+    cx+=10;
+    cy+=1;
+  }
+  
+  break;
+  
+  
+  
+  
   //fill(0);
   //text("Output port: "+oval1, 10, 100);
   //text(width, 10, 30);画面幅は1366
