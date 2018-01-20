@@ -7,12 +7,16 @@ byte[] inByte = new byte[3]; // 受信データ用バッファ
 
 int oval1;
 
+PImage Grape;
+
 int BeltHeight = 100;
 
 int scenes = -1;
 int bg = 0;
 
 int case1count = 0, case3count = 0, case5count = 0;
+
+int gx = 0, gy = 0;
 
 int bx = 700, bx2 = 0;
 int by = 0;
@@ -32,7 +36,8 @@ int BeltStop = 0;
 void setup(){
   fullScreen();
   noCursor();
- 
+  Grape = loadImage("grape.jpeg");
+
   printArray(Serial.list()); // 使用可能なシリアルポート一覧の出力。デバッグ用
   //String portName = Serial.list()[0]; // 使用するシリアルポート名
   //serialPort = new Serial(this, portName, 9600);
@@ -310,7 +315,7 @@ void draw(){
   
   case 7:
   
-   fill(255, 100, 0);
+   fill(255, 0, 100);
   rect(bx - 60, height - 170, 120, 70);
   
   fill(255 - R, 255 - G, 255 - B);
@@ -369,8 +374,8 @@ void draw(){
   
   case 8:
  
-    fill(255, 100, 0);
-  rect(bx - 60, height - 170, 120, 70);
+    fill(255, 0, 200);
+  ellipse(bx - 60, height - 170, 70, 70);
   
   fill(255, 255, 255);
   rect(bx2 -40, height - 200, 140, 120);
@@ -400,6 +405,12 @@ void draw(){
   
   if(g != 20){
     g+=5;
+  }
+  
+  if(bx2 != displayWidth + 50){
+  
+    bx2+=30;
+    
   }
   
   break;
