@@ -10,6 +10,7 @@ int oval1;
 PImage Grape, Factory, House, Hito;
 int fx = 0;
 int hx = 1000;
+int running = 0;
 
 int BeltHeight = 100;
 
@@ -20,7 +21,7 @@ int case1count = 0, case3count = 0, case5count = 0;
 
 int gx = 100, gy = displayHeight - 400;
 
-int bx = 700, bx2 = 0;
+int bx = 720, bx2 = -100;
 int by = 0;
 
 int px = 0, py = 200;
@@ -59,17 +60,43 @@ void draw(){
   } else {
   background(180 + r, 180 + g, 180 + g);
   }
-  
-  if(scenes < 9){
+
+  if(running == 0){
   image(Factory,  fx,height - 245, 200, 150);
   image(Grape, fx + 150, height - 260, 100, 100);
+  
   image(House, hx, height - 245, 200, 150);
   image(Grape, hx - 45, height - 260, 100, 100);
   
-  fx+=50;
-  hx-=50;
+  fx+=40;
+  hx-=40;
+  
+     if(fx > displayWidth + 100){
+    fx = -20;
   }
   
+if(hx <  - 100){
+    hx = 1500;
+  }
+  
+  } else {
+    image(Factory,  fx,height - 245, 200, 150);
+  image(Grape, fx + 150, height - 260, 100, 100);
+  
+  image(House, hx, height - 245, 200, 150);
+  image(Grape, hx - 45, height - 260, 100, 100);
+  
+     if(fx <= displayWidth + 100){
+    fx+=40;
+  }
+  
+if(hx >=  -150){
+    hx-=40;
+  }
+  }
+
+  
+   
   switch(scenes){
     case -1:
     BeltStop=1;
@@ -80,6 +107,13 @@ void draw(){
       scenes = 0;
     }
     
+  image(Hito, bx2 - 220, height - 200, 200, 150);
+  rect(bx2 -40, height - 200, 140, 120);
+  fill(0);
+  textSize(100);
+  text("?", bx2 + 15, height - 110);
+  fill(255);
+  
     break;
     
   case 0://最初のanimation
@@ -99,6 +133,14 @@ void draw(){
     BeltStop = 0;
   
   }
+  
+  image(Hito, bx2 - 220, height - 200, 200, 150);
+  rect(bx2 -40, height - 200, 140, 120);
+  fill(0);
+  textSize(100);
+  text("?", bx2 + 15, height - 110);
+  fill(255);
+  
   break;
   case 1://二番目のアニメーション
   fill(255);
@@ -124,6 +166,14 @@ void draw(){
   if(case1count >= 60){//シーン遷移
     scenes++;
   }
+  
+  image(Hito, bx2 - 220, height - 200, 200, 150);
+  rect(bx2 -40, height - 200, 140, 120);
+  fill(0);
+  textSize(100);
+  text("?", bx2 + 15, height - 110);
+  fill(255);
+  
   break;
   
   case 2://ピストン下す
@@ -170,6 +220,13 @@ void draw(){
     if(py >= height - 220 && scenes < 4){
       scenes++;
     } 
+ 
+ image(Hito, bx2 - 220, height - 200, 200, 150);
+  rect(bx2 -40, height - 200, 140, 120);
+  fill(0);
+  textSize(100);
+  text("?", bx2 + 15, height - 110);
+  fill(255);
  
    break; 
    
@@ -228,6 +285,13 @@ void draw(){
      scenes++;
    }
    
+   image(Hito, bx2 - 220, height - 200, 200, 150);
+  rect(bx2 -40, height - 200, 140, 120);
+  fill(0);
+  textSize(100);
+  text("?", bx2 + 15, height - 110);
+  fill(255);
+   
     break; 
    
    case 4://ピストン上げる
@@ -265,6 +329,13 @@ void draw(){
      scenes++;
    }
    
+   image(Hito, bx2 - 220, height - 200, 200, 150);
+  rect(bx2 -40, height - 200, 140, 120);
+  fill(0);
+  textSize(100);
+  text("?", bx2 + 15, height - 110);
+  fill(255);
+   
    break;
    
    case 5:
@@ -293,6 +364,14 @@ void draw(){
   if(case5count >= 30){//シーン遷移
     scenes++;
   }
+  
+  image(Hito, bx2 - 220, height - 200, 200, 150);
+  rect(bx2 -40, height - 200, 140, 120);
+  fill(0);
+  textSize(100);
+  text("?", bx2 + 15, height - 110);
+  fill(255);
+  
   break;
   
   case 6:
@@ -329,6 +408,7 @@ void draw(){
     scenes++;
   }
   
+
   break;
   
   case 7:
@@ -359,23 +439,23 @@ void draw(){
   //終わり
   
   if(case7color == 0 && G < 255 && B < 255){
-    G+=85;
-    B+=85;
+    G+=15;
+    B+=15;
   }
   
   if(case7color == 1 && R < 255 && G > 0){
-    R+=85;
-    G-=85;
+    R+=15;
+    G-=15;
   }
   
   if(case7color == 2 && G < 255 && B > 0){
-   G+=85;
-   B-=85;
+   G+=15;
+   B-=15;
   }
   
   if(case7color == 3 && G > 0 && R > 0){
-     R-=85;
-    G-=85;
+     R-=15;
+    G-=15;
      }
   
   if(G == 255 && B == 255) case7color++;
@@ -387,6 +467,8 @@ void draw(){
     scenes++;
    bg++;
   }
+  
+
   
   break;
   
@@ -429,14 +511,14 @@ void draw(){
   //image(Grape, gx, gy, 100, 100);
   
   
-  if(bx2 != displayWidth + 50){
+  if(bx2 < displayWidth + 50){
   
     bx2+=30;
     
   } else {
     scenes++;
+    running++;
   }
-  
   
   
   break;
@@ -457,7 +539,7 @@ void draw(){
     Belt(BeltHeight);
   }
   //終わり
-
+text("aaaaa", 1000, 500);
   
   
   break;
@@ -483,15 +565,7 @@ void draw(){
     Beltswitch = 0;
   }
   //ベルトコンベアここまで
-  
-  if(fx > displayWidth + 100){
-    fx = -20;
-  }
-  
-if(hx <  - 100){
-    hx = 1500;
-  }
- 
+   
 }
   
   
