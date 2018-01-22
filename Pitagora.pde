@@ -5,7 +5,8 @@ boolean firstContact = false;  //Arduinoからのはじめの送信を確認す�
 
 byte[] inByte = new byte[3]; // 受信データ用バッファ
 
-int oval1;
+int oval[] = {99, 99};
+int mousei= 0;
 
 PImage Grape, Factory, House, Hito;
 int fx = 0;
@@ -47,11 +48,11 @@ void setup(){
   Hito = loadImage("hito.png");
 
   printArray(Serial.list()); // 使用可能なシリアルポート一覧の出力。デバッグ用
-  //String portName = Serial.list()[0]; // 使用するシリアルポート名
-  //serialPort = new Serial(this, portName, 9600);
-  //serialPort.buffer(inByte.length); // 読み込むバッファの長さを指定
+  String portName = Serial.list()[0]; // 使用するシリアルポート名
+  serialPort = new Serial(this, portName, 9600);
+  serialPort.buffer(inByte.length); // 読み込むバッファの長さを指定
 
-  oval1 = 99;
+  
 }
 
 void draw(){

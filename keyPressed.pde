@@ -1,25 +1,33 @@
-/*
+
 
 // キー入力メソッド ボール落とす用とオチ用
-void keyPressed() {
+void mousePressed() {
+  oval[mousei] = 15;
+  sendServo(mousei + 1, oval[mousei]);
+  mousei++;
+}
+  
+  /*
   switch(key){
+   
+    
   case 'z':
-    oval1 += 1; // zキーがおされたら値を1増やす。
+    oval[i] += 1; // zキーがおされたら値を1増やす。
     sendServo(2, oval1);
     break;
   case 'x':
-    oval1 -= 1; // xキーがおされたら値を1減らす。
-    sendServo(2, oval1);
-    break;
-  case 'c':
-    oval1 = 15;
+    oval[i] -= 1; // xキーがおされたら値を1減らす。
     sendServo(2, oval1);
     break;
   case 'v':
-    oval1 = 125;
+    oval[i] = 15;
+    sendServo(2, oval1);
+    break;
+  case 'c':
+    oval[i] = 125;
     sendServo(2, oval1);
     break;
   default:
     break;
   }
-}*/
+*/
