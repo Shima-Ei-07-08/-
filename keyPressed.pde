@@ -1,10 +1,18 @@
-/*
+
 
 // キー入力メソッド ボール落とす用とオチ用
 void mousePressed() {
+  if(mouseCount == 1){
   oval[mousei] = 15;
   sendServo(mousei + 1, oval[mousei]);
   mousei++;
+  mouseCount = 2;
+  }
+  
+  if(mouseCount == 2){
+    oval[mousei] = 15;
+  sendServo(mousei + 1, oval[mousei]);
+  }
 }
   
   /*

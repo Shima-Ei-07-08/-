@@ -7,13 +7,17 @@ byte[] inByte = new byte[3]; // 受信データ用バッファ
 
 int oval[] = {99, 99};
 int mousei= 0;
-int scenes = 1;
+int scenes = 0;
 int bx, by = 0;
 int cx = -1000, cy, cback = 0;
 int gcount = 0;
 int gx = 0;
 int my;
 int n = 5;
+int rx;
+int count1 = 0, count2 = 0;
+
+int mouseCount = 0;
 
 void setup(){
   fullScreen();
@@ -32,14 +36,22 @@ void setup(){
 
 void draw(){
   
-  background(150); 
+  background(255, 200, 200); 
   
   fill(255);
   rect(displayWidth / 2 - 300, displayHeight / 2 - 3, 600, 50);
   rect(displayWidth / 2 - 25, displayHeight / 2 + 47, 50, 1000);
+  meter1(100, 250);
+  meter2(1100, 250);
   
   switch(scenes){
   case 0:
+  
+  if(mouseButton == RIGHT && mouseCount == 0){
+    scenes = 1;
+    mouseCount = 1;
+  }
+  
   
   break;
   
@@ -54,19 +66,27 @@ void draw(){
     cy = by - 40;
   }
   
-  break;
- 
-  case 2:
-  
-  ellipse(bx, by, 100, 100);
-  
-  fill(100);
+    fill(100);
   rect(cx, cy, 1000, 50);
   rect(displayWidth / 2 + 350, my, 100, 100);
   rect(displayWidth / 2 + 385, my + 100, 25, 1000); 
   textSize(80);
   fill(255);
   text(n - gcount ,displayWidth / 2 + 370, my + 75);
+  
+  break;
+ 
+  case 2:
+  
+  ellipse(bx, by, 100, 100);
+  
+    fill(100);
+  rect(cx, cy, 1000, 50);
+  rect(displayWidth / 2 + 330, my, 100, 100);
+  rect(displayWidth / 2 + 365, my + 100, 25, 1000); 
+  textSize(80);
+  fill(255);
+  text(n - gcount ,displayWidth / 2 + 350, my + 75);
   
   if(cx < -1000 + displayWidth / 2 -100){
     cx+=10;
@@ -85,15 +105,13 @@ void draw(){
   fill(255, 0, 255);
   ellipse(gx, cy + 10, 50, 50);
   
-  
   fill(100);
   rect(cx, cy, 1000, 50);
-  rect(displayWidth / 2 + 350, my, 100, 100);
-  rect(displayWidth / 2 + 385, my + 100, 25, 1000); 
+  rect(displayWidth / 2 + 330, my, 100, 100);
+  rect(displayWidth / 2 + 365, my + 100, 25, 1000); 
   textSize(80);
   fill(255);
-  text(n - gcount ,displayWidth / 2 + 370, my + 75);
-  
+  text(n - gcount ,displayWidth / 2 + 350, my + 75);
   
   if(gcount < 5 &&  gx < displayWidth/2){
        gx+=20;
@@ -119,11 +137,11 @@ void draw(){
   
   fill(100);
   rect(cx, cy, 1000, 50);
-  rect(displayWidth / 2 + 350, my, 100, 100);
-  rect(displayWidth / 2 + 385, my + 100, 25, 1000); 
+  rect(displayWidth / 2 + 330, my, 100, 100);
+  rect(displayWidth / 2 + 365, my + 100, 25, 1000); 
   textSize(80);
   fill(255);
-  text(n - gcount ,displayWidth / 2 + 370, my + 75);
+  text(n - gcount ,displayWidth / 2 + 350, my + 75);
   
   if(my < displayHeight + 100){
    my+=10; 
@@ -144,6 +162,13 @@ void draw(){
   
   fill(100);
   rect(cx, cy, 1000, 50);
+  
+  fill(255);
+  rect(displayWidth - rx, displayHeight / 2 - 3,1000, 25);
+  
+  if(displayWidth - rx >= displayHeight / 2 + 601){
+    rx+=10;
+  }
   
   cback++;
   
@@ -168,6 +193,9 @@ void draw(){
   
   fill(100);
   rect(cx, cy, 1000, 50);
+  
+  fill(255);
+  rect(displayWidth - rx, displayHeight / 2 - 3,1000, 25);
   
   if(cx <= displayWidth / 2 - 700){
     cx+=20;
