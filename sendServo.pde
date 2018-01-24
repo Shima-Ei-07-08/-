@@ -1,4 +1,4 @@
-
+/*
 // シリアルポートにサーボの値を送るメソッド
 void sendServo(int id, int value)
 {
@@ -10,3 +10,5 @@ void sendServo(int id, int value)
   serialPort.write((byte)id);
   serialPort.write((byte)v);
 }
+
+*/
